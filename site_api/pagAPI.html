@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de CEP e Calculadora de Frete</title>
+   <link rel="stylesheet" href="style.css">
+        <body>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>CALCULADORA DE FRETE e CONULTA DE CEP</h1>
+
+    <h2>Busca por CEP</h2>
+    <input type="text" id="cepInput" placeholder="Digite o CEP">
+    <button onclick="consultarCEP()">Consultar</button>
+    <div id="cepResult"></div>
+
+    <h2>Busca por Logradouro</h2>
+    <input type="text" id="ufInput" placeholder="UF">
+    <input type="text" id="cidadeInput" placeholder="Cidade">
+    <input type="text" id="logradouroInput" placeholder="Logradouro">
+    <button onclick="buscarLogradouro()">Buscar</button>
+    <div id="logradouroResult"></div>
+
+    <h2>Calculo de Frete</h2>
+    <input type="text" id="origemInput" placeholder="CEP de Origem">
+    <input type="text" id="destinoInput" placeholder="CEP de Destino">
+    <input type="number" id="pesoInput" placeholder="Peso (kg)">
+    <button onclick="calcularFrete()">Calcular</button>
+    <div id="freteResult"></div>
+
+    <script>
+
+        function consultarCEP() {
+            var cep = document.getElementById('cepInput').value;
+            fetch('https://viacep.com.br/ws/' + cep + '/json/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('cepResult').innerHTML = JSON.stringify(data);
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+
+        function buscarLogradouro() {
+            var uf = document.getElementById('ufInput').value;
+            var cidade = document.getElementById('cidadeInput').value;
+            var logradouro = document.getElementById('logradouroInput').value;
+            fetch('https://viacep.com.br/ws/' + uf + '/' + cidade + '/' + logradouro + '/json/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('logradouroResult').innerHTML = JSON.stringify(data);
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+
+        function calcularFrete() {
+            var origem = document.getElementById('origemInput').value;
+            var destino = document.getElementById('destinoInput').value;
+            var peso = parseFloat(document.getElementById('pesoInput').value);
+            
+            var distancia = Math.abs(parseInt(origem) - parseInt(destino));
+            var cubagem = peso * 10;
+            
+            var frete = distancia * cubagem / 100;
+
+            document.getElementById('freteResult').innerHTML = "O valor do frete é R$ " + frete.toFixed(2);
+        }
+    </script>
+</body>
+</html>

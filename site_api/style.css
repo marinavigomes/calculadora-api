@@ -1,0 +1,49 @@
+
+
+body{
+background-color: #f1f1f1;
+
+text-align: center;
+margin: 0;
+padding: 0;
+color: #786a80;
+
+
+}
+
+.container {
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+box-sizing: border-box;
+color: #5d476a;
+}
+
+h1, h2 {
+color: #652b7d;
+}
+
+input[type="text"], input[type="number"], button {
+margin-bottom: 10px;
+padding: 5px;
+border-radius: 10px;
+border:0;
+background-color: #e5dae9;
+margin-top: 30px;
+}
+
+button {
+cursor: pointer;
+color: #0d0111;
+background-color: #a259bf;
+border: 0px;
+border-radius: 10px;
+font-size: 80%;
+}
+
+.result {
+margin-top: 20px;
+border: 1px solid #ccc;
+padding: 10px;
+text-align: left;
+}
